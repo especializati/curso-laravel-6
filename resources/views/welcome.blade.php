@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Curso de Laravel 6 =D
+                    Curso de Laravel 6.x =D
                 </div>
 
                 <div class="links">
