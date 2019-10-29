@@ -16,9 +16,9 @@ class ProductController extends Controller
         /*$this->middleware('auth')->only([
             'create', 'store'
         ]);*/
-        $this->middleware('auth')->except([
-            'index', 'show'
-        ]);
+        // $this->middleware('auth')->except([
+        //     'index', 'show'
+        // ]);
     }
 
 
@@ -29,7 +29,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return 'Listagem dos produtos';
+        $teste = 123;
+        $teste2 = 312;
+        $teste3 = [1,2,3,4,5];
+        $products = ['Tv', 'Geladeira', 'Forno', 'Sofá'];
+
+        return view('admin.pages.products.index', compact('teste', 'teste2', 'teste3', 'products'));
     }
 
     /**
@@ -39,7 +44,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pages.products.create');
     }
 
     /**
@@ -50,7 +55,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        
+        dd('Cadastrando...');
     }
 
     /**
@@ -72,7 +77,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.pages.products.edit', compact('id'));
     }
 
     /**
@@ -84,7 +89,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd("Editando o produto {$id}");
     }
 
     /**
