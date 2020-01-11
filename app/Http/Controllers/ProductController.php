@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUpdateProductRequest;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -30,12 +31,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $teste = 123;
-        $teste2 = 312;
-        $teste3 = [1,2,3,4,5];
-        $products = ['Tv', 'Geladeira', 'Forno', 'Sofá'];
+        $products = Product::latest()->paginate();
 
-        return view('admin.pages.products.index', compact('teste', 'teste2', 'teste3', 'products'));
+        return view('admin.pages.products.index', [
+            'products' => $products,
+        ]);
     }
 
     /**
@@ -56,27 +56,11 @@ class ProductController extends Controller
      */
     public function store(StoreUpdateProductRequest $request)
     {
-        dd('OK');
-        /*
-        $request->validate([
-            'name' => 'required|min:3|max:255',
-            'description' => 'nullable|min:3|max:10000',
-            'photo' => 'required|image',
-        ]);
-        */
+        $data = $request->only('name', 'description', 'price');
 
-        // dd($request->all());
-        // dd($request->only(['name', 'description']));
-        // dd($request->name);
-        // dd($request->input('teste', 'default'));
-        // dd($request->except('_token', 'name'));
-        if ($request->file('photo')->isValid()) {
-            // dd($request->file('photo')->store('products'));
-            // dd($request->file('photo')->store('products'));
+        Product::create($data);
 
-            $nameFile = $request->name . '.' . $request->photo->extension();
-            dd($request->file('photo')->storeAs('products', $nameFile));
-        }
+        return redirect()->route('products.index');
     }
 
     /**
@@ -87,7 +71,13 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return "Detalhes do produto {$id}";
+        // $product = Product::where('id', $id)->first();
+        if (!$product = Product::find($id)) 
+            return redirect()->back();
+
+        return view('admin.pages.products.show', [
+            'product' => $product
+        ]);
     }
 
     /**
