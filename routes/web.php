@@ -1,5 +1,6 @@
 <?php
 
+Route::any('products/search', 'ProductController@search')->name('products.search');
 Route::resource('products', 'ProductController'); // ->middleware('auth');
 /*
 Route::delete('products/{id}', 'ProductController@destroy')->name('products.destroy');
@@ -26,9 +27,9 @@ Route::middleware([])->group(function () {
 
             Route::name('admin.')->group(function () {
                 Route::get('/dashboard', 'TesteController@teste')->name('dashboard');
-        
+
                 Route::get('/financeiro', 'TesteController@teste')->name('financeiro');
-                
+
                 Route::get('/produtos', 'TesteController@teste')->name('products');
 
                 Route::get('/', function () {
@@ -47,9 +48,9 @@ Route::group([
     'name' => 'admin.'
 ], function () {
     Route::get('/dashboard', 'TesteController@teste')->name('dashboard');
-        
+
     Route::get('/financeiro', 'TesteController@teste')->name('financeiro');
-    
+
     Route::get('/produtos', 'TesteController@teste')->name('products');
 
     Route::get('/', function () {
