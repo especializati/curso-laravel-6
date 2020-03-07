@@ -1,7 +1,7 @@
 <?php
 
-Route::any('products/search', 'ProductController@search')->name('products.search');
-Route::resource('products', 'ProductController'); // ->middleware('auth');
+Route::any('products/search', 'ProductController@search')->name('products.search')->middleware('auth');
+Route::resource('products', 'ProductController')->middleware('auth');
 /*
 Route::delete('products/{id}', 'ProductController@destroy')->name('products.destroy');
 Route::put('products/{id}', 'ProductController@update')->name('products.update');
@@ -116,3 +116,5 @@ Route::get('/contato', function () {
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes(['register' => false]);
